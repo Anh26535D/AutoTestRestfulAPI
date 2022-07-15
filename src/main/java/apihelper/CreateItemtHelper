@@ -1,0 +1,63 @@
+package apihelper;
+
+import org.json.JSONObject;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import urlhelper.*;
+
+public class CreateItemtHelper extends GeneralHelper{
+
+	public JSONObject setRequestObject(String name, int starting_price, int brand_id, String description, String series) {		
+		JSONObject request = new JSONObject();
+		request.put("name", name);
+		request.put("starting_price", starting_price);
+		request.put("brand_id", brand_id);
+		request.put("description", description);
+		request.put("series", series);
+		return request;
+	}
+	
+	public Response getApiResponse(String email, String password, String name, int starting_price, int brand_id, String description, String series, String auctionId) {
+		JSONObject request = this.setRequestObject(name,starting_price,brand_id,description,series);
+		
+		BaseURI baseUri = new BaseURI();
+		RestAssured.baseURI = baseUri.getBaseURI();
+		
+		LoginHelper login = new LoginHelper();
+		String access_token = login.getAccessToken(email, password);
+		
+		Response response = RestAssured
+				.given()
+					.header("Authorization", "Bearer" + access_token)
+					.contentType("application/json")
+					.body(request.toString())
+				.when()
+					.post("api/items/create" + auctionId);
+		return response;
+	}
+
+//For not login
+	public Response getApiResponse(String name, int starting_price, int brand_id, String description, String series, String auctionId) {
+		JSONObject request = this.setRequestObject(name,starting_price,brand_id,description,series);
+		
+		BaseURI baseUri = new BaseURI();
+		RestAssured.baseURI = baseUri.getBaseURI();
+		
+		Response firstResponse = RestAssured
+				.given()
+					.header("Content-Type", "application/json")
+					.body(request.toString())
+		            .redirects().follow(false)
+				.when()
+					.post("api/items/create" + auctionId);
+		
+		String redirectUrl = firstResponse.getHeader("Location");
+		Response response = RestAssured
+		        .given()
+		        	.header("Content-Type", "application/json")
+		        .when().
+		            get(redirectUrl);
+		return response;
+	}
+}
