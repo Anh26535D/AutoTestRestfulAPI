@@ -78,6 +78,28 @@ public class GetNewsTest {
 		System.out.println("Test 3 finished");
 	}
 	
+	public void test4() {
+		System.out.println("Test 4 in GetNews API: When not login, code should be 1004");
+		
+		GetNewsHelper getNews = new GetNewsHelper();
+		String index, count;
+		RandomString rdStr = new RandomString();
+
+		for(int i=0; i<5; i++) {
+			index = rdStr.getRandomNumericString(20);
+			count = rdStr.getRandomNumericString(20);
+			Response reponse = getNews.getApiResponse(index, count);
+			try {
+				Assert.assertEquals(getNews.getCodeResponse(reponse), 1004);
+				System.out.println("Unit " + i + " in test 4: Passed");
+			} catch (AssertionError e) {
+				System.out.println("Unit " + i + " in test 4: Failed");
+				System.out.println("Actuacl: " + getNews.getCodeResponse(reponse));
+			}
+		}
+		System.out.println("Test 4 finished");
+	}
+	
 	
 	public void chooseTest(String select) {
 		switch(select) {
@@ -85,6 +107,7 @@ public class GetNewsTest {
 			this.test1();
 			this.test2();
 			this.test3();
+			this.test4();
 			break;
 		case "1": 
 			this.test1();
@@ -94,6 +117,9 @@ public class GetNewsTest {
 			break;
 		case "3":
 			this.test3();
+			break;
+		case "4":
+			this.test4();
 			break;
 		default:
 			break;

@@ -4,6 +4,7 @@ import org.testng.Assert;
 
 import apihelper.GetNotificationsHelper;
 import io.restassured.response.Response;
+import randomhelper.RandomInteger;
 import randomhelper.RandomString;
 
 public class GetNotificationsTest {
@@ -81,12 +82,37 @@ public class GetNotificationsTest {
 		System.out.println("Test 3 finished");
 	 }
 	
+	public void test4() {
+		System.out.println("Test 4 in GetNotifications API: Code should be 1004 when not login");
+		
+		GetNotificationsHelper getNotif = new GetNotificationsHelper();
+		String index, count, is_not_read;
+		
+		RandomString rdStr = new RandomString();
+		RandomInteger rdInteger = new RandomInteger();
+		for(int i=0; i<5; i++) {
+			index = rdStr.getRandomNumericString(10);
+			count = rdStr.getRandomNumericString(10);
+			is_not_read = Integer.toString(rdInteger.getRandomInteger(0, 1));
+			Response response = getNotif.getApiResponse(index, count, is_not_read);
+			try {		
+				Assert.assertEquals(getNotif.getCodeResponse(response), 1004);
+		        System.out.println("Unit " + i + " in test4: Passed");
+			} catch (AssertionError e) {
+		        System.out.println("Unit " + i + " in test4: Failed");
+				System.out.println("Actual: " + getNotif.getCodeResponse(response));
+			}
+		}
+		System.out.println("Test 4 finished");
+	 }
+	
 	public void chooseTest(String select) {
 		switch(select) {
 		case "0": 
 			this.test1();
 			this.test2();
 			this.test3();
+			this.test4();
 			break;
 		case "1": 
 			this.test1();
@@ -96,6 +122,9 @@ public class GetNotificationsTest {
 			break;
 		case "3":
 			this.test3();
+			break;
+		case "4":
+			this.test4();
 			break;
 		default:
 			break;

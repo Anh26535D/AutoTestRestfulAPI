@@ -37,4 +37,19 @@ public class GetNotificationsHelper extends GeneralHelper{
 		return response;
 	}
 	
+	public Response getApiResponse(String index, String count, String is_not_read) {
+		JSONObject request = this.setRequestObject(index, count, is_not_read);
+		
+		BaseURI baseUri = new BaseURI();
+		RestAssured.baseURI = baseUri.getBaseURI();
+		
+		Response response = RestAssured
+				.given()
+					.contentType("application/json")
+					.body(request.toString())
+				.when()
+					.get("api/notifications");
+		
+		return response;
+	}
 }

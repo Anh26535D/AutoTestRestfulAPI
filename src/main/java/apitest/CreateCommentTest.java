@@ -27,23 +27,24 @@ public class CreateCommentTest {
 		RandomInteger rdInt = new RandomInteger();
 		
 		for(int i=0; i<5; i++) {
+			content = rdStr.getRandomString(rdInt.getRandomInteger(0, 100));
+			comment_last_id = "";
+			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
+			Response response = creCmt.getApiResponse(email, password, content, comment_last_id, auctionId);
 			try {			
-				content = rdStr.getRandomString(rdInt.getRandomInteger(0, 100));
-				comment_last_id = "";
-				auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
-				Response response = creCmt.getApiResponse(email, password, content, comment_last_id, auctionId);
 				Assert.assertEquals(creCmt.getCodeResponse(response), 1000);
 				Assert.assertEquals(creCmt.getMessageResponse(response), "OK");
 		        System.out.println("Unit " + i + " in test 1: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 1: Failed");
+		        System.out.println("Actual: " + creCmt.getCodeResponse(response) + " " + creCmt.getMessageResponse(response));
 			}
 		}
 		System.out.println("Test 1 finished");
 	}
 	
 	public void test2() {
-		System.out.println("Test 2 in CreateComment API: The code should be 1004 and message is \"まだログインではありません\" when not log in");
+		System.out.println("Test 2 in CreateComment API: The code should be 1004 when not log in");
 		CreateCommentHelper creCmt = new CreateCommentHelper();
 		String content, comment_last_id, auctionId;
 		
@@ -54,16 +55,16 @@ public class CreateCommentTest {
 		RandomInteger rdInt = new RandomInteger();
 		
 		for(int i=0; i<5; i++) {
+			content = rdStr.getRandomString(rdInt.getRandomInteger(0, 100));
+			comment_last_id = "";
+			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
+			Response response = creCmt.getApiResponse(content, comment_last_id, auctionId);
 			try {			
-				content = rdStr.getRandomString(rdInt.getRandomInteger(0, 100));
-				comment_last_id = "";
-				auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
-				Response response = creCmt.getApiResponse(content, comment_last_id, auctionId);
 				Assert.assertEquals(creCmt.getCodeResponse(response), 1004);
-				Assert.assertEquals(creCmt.getMessageResponse(response), "まだログインではありません");
 		        System.out.println("Unit " + i + " in test 2: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 2: Failed");
+		        System.out.println("Actual: " + creCmt.getCodeResponse(response));
 			}
 		}
 		System.out.println("Test 2 finished");
@@ -74,6 +75,9 @@ public class CreateCommentTest {
 		CreateCommentHelper creCmt = new CreateCommentHelper();
 		String content, comment_last_id, auctionId;
 		
+		String email = "auto@gmail.com";
+		String password = "123456";
+		
 		GetListAuctionsHelper listAuction = new GetListAuctionsHelper();
 		ArrayList<String> listId = listAuction.getListPendingAuctionId();
 		
@@ -81,15 +85,17 @@ public class CreateCommentTest {
 		RandomInteger rdInt = new RandomInteger();
 		
 		for(int i=0; i<5; i++) {
+			content = rdStr.getRandomString(rdInt.getRandomInteger(0, 100));
+			comment_last_id = "";
+			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
+//			auctionId = "/1642";
+			Response response = creCmt.getApiResponse(email, password, content, comment_last_id, auctionId);
 			try {			
-				content = rdStr.getRandomString(rdInt.getRandomInteger(0, 100));
-				comment_last_id = "";
-				auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
-				Response response = creCmt.getApiResponse(content, comment_last_id, auctionId);
 				Assert.assertEquals(creCmt.getCodeResponse(response), 1008);
 		        System.out.println("Unit " + i + " in test 3: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 3: Failed");
+		        System.out.println("Actual: " + creCmt.getCodeResponse(response) + " with auctionId: " + auctionId);
 			}
 		}
 		System.out.println("Test 3 finished");
@@ -100,6 +106,8 @@ public class CreateCommentTest {
 		CreateCommentHelper creCmt = new CreateCommentHelper();
 		String content, comment_last_id, auctionId;
 		
+		String email = "auto@gmail.com", password = "123456";
+		
 		GetListAuctionsHelper listAuction = new GetListAuctionsHelper();
 		ArrayList<String> listId = listAuction.getListAuctionIdEnded();
 		
@@ -107,15 +115,16 @@ public class CreateCommentTest {
 		RandomInteger rdInt = new RandomInteger();
 		
 		for(int i=0; i<5; i++) {
+			content = rdStr.getRandomString(rdInt.getRandomInteger(0, 100));
+			comment_last_id = "";
+			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
+			Response response = creCmt.getApiResponse(email, password, content, comment_last_id, auctionId);
 			try {			
-				content = rdStr.getRandomString(rdInt.getRandomInteger(0, 100));
-				comment_last_id = "";
-				auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
-				Response response = creCmt.getApiResponse(content, comment_last_id, auctionId);
 				Assert.assertEquals(creCmt.getCodeResponse(response), 1008);
 		        System.out.println("Unit " + i + " in test 4: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 4: Failed");
+		        System.out.println("Actual: " + creCmt.getCodeResponse(response) + " with auctionId: " + auctionId);
 			}
 		}
 		System.out.println("Test 4 finished");

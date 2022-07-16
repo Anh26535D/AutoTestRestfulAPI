@@ -6,23 +6,20 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import urlhelper.BaseURI;
 
-public class EditAuctionHelper extends GeneralHelper {
-
-	public JSONObject setRequestObject(String category_id, String start_date, String end_date, String title_ni) {
+public class ChangePassHelper extends GeneralHelper{
+	public JSONObject setRequestObject(String old_pass, String new_pass, String re_pass) {
 		JSONObject request = new JSONObject();
-		request.put("category_id", category_id);
-		request.put("start_date", start_date);
-		request.put("end_date", end_date);
-		request.put("title_ni", title_ni);
+		request.put("old_pass", old_pass);
+		request.put("new_pass", new_pass);
+		request.put("re_pass", re_pass);
 		return request;
 	}
-
-//Having log in
-	public Response getApiResponse(String email, String password, String category_id, String start_date, String end_date, String title_ni, String auctionId) { 
+	
+	public Response getApiResponse(String email, String password, String old_pass, String new_pass, String re_pass) {
 		LoginHelper login = new LoginHelper();
 		String access_token = login.getAccessToken(email, password);
 		
-		JSONObject request = this.setRequestObject(category_id, start_date, end_date, title_ni);
+		JSONObject request = this.setRequestObject(old_pass, new_pass, re_pass);
 		
 		BaseURI baseUri = new BaseURI();
 		RestAssured.baseURI = baseUri.getBaseURI();
@@ -33,12 +30,12 @@ public class EditAuctionHelper extends GeneralHelper {
 					.contentType("application/json")
 					.body(request.toString())
 				.when()
-					.post("api/auctions/edit" + auctionId);
-		return response;
+					.post("api/changepass");
+		return response;	
 	}
-//Not log in	
-	public Response getApiResponse(String category_id, String start_date, String end_date, String title_ni, String auctionId) { 
-		JSONObject request = this.setRequestObject(category_id, start_date, end_date, title_ni);
+	
+	public Response getApiResponse(String old_pass, String new_pass, String re_pass) {	
+		JSONObject request = this.setRequestObject(old_pass, new_pass, re_pass);
 		
 		BaseURI baseUri = new BaseURI();
 		RestAssured.baseURI = baseUri.getBaseURI();
@@ -50,13 +47,13 @@ public class EditAuctionHelper extends GeneralHelper {
 		            .redirects().follow(false)
 		        .expect().statusCode(302)
 				.when()
-					.post("api/auctions/edit" + auctionId);
+					.post("api/changepass");
 		String redirectUrl = firstResponse.getHeader("Location");
 		Response response = RestAssured
 		        .given()
 		        	.header("Content-Type", "application/json")
 		        .when().
 		            get(redirectUrl);
-		return response;
+		return response;	
 	}
 }

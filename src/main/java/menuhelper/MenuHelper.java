@@ -1,6 +1,5 @@
 package menuhelper;
 
-import java.lang.ProcessHandle.Info;
 import java.util.Scanner;
 
 import apitest.*;
@@ -58,9 +57,6 @@ public class MenuHelper {
 					+ "39.	create_message_of_chat\r\n"
 					+ "40.	get_list_message_of_chat\r\n"
 					+ "41.	delivery\r\n"
-					+ "42.	rate\r\n"
-					+ "43.	get_list_rates\r\n"
-					+ "44.	edit_rate\r\n"
 					+ "");
 		}
 		
@@ -79,11 +75,29 @@ public class MenuHelper {
 					LoginTest loginTest = new LoginTest();
 					loginTest.chooseTest(selectMode);
 					break;
+			case "4":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					SignupTest signup = new SignupTest();
+					signup.chooseTest(selectMode);
+					break;
+			case "5":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					EditAccountTest edit = new EditAccountTest();
+					edit.chooseTest(selectMode);
+					break;
 			case "6":
 					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
 					selectMode = this.select();
 					LogoutTest logoutTest = new LogoutTest();
 					logoutTest.chooseTest(selectMode);
+					break;
+			case "7":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					ChangePassTest change = new ChangePassTest();
+					change.chooseTest(selectMode);
 					break;
 			case "8":
 					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
@@ -127,6 +141,18 @@ public class MenuHelper {
 					InfoAuctionTest infoAuction = new InfoAuctionTest();
 					infoAuction.chooseTest(selectMode);
 					break;
+			case "15":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					CreateItemTest creItem = new CreateItemTest();
+					creItem.chooseTest(selectMode);
+					break;		
+			case "17":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					InfoItemTest infoItem = new InfoItemTest();
+					infoItem.chooseTest(selectMode);
+					break;		
 			case "18":
 					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
 					selectMode = this.select();
@@ -138,6 +164,24 @@ public class MenuHelper {
 					selectMode = this.select();
 					GetListCommentsTest listCmt = new GetListCommentsTest();
 					listCmt.chooseTest(selectMode);
+					break;
+			case "21":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					CreateBidTest creBid = new CreateBidTest();
+					creBid.chooseTest(selectMode);
+					break;
+			case "23":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					GetListCategoriesTest listCate = new GetListCategoriesTest();
+					listCate.chooseTest(selectMode);
+					break;
+			case "24":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					GetListBrandsTest listBrands = new GetListBrandsTest();
+					listBrands.chooseTest(selectMode);
 					break;
 			case "27":
 					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
@@ -193,12 +237,25 @@ public class MenuHelper {
 					SearchTest search = new SearchTest();
 					search.chooseTest(selectMode);
 					break;
-//			case "42":
-//					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
-//					selectMode = this.select();
-//					RateTest rate = new RateTest();
-//					rate.chooseTest(selectMode);
-//					break;
+			case "36":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					DeleteNotificationTest del = new DeleteNotificationTest();
+					del.chooseTest(selectMode);
+					break;
+			case "37":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					GetListChatTest listChat = new GetListChatTest();
+					listChat.chooseTest(selectMode);
+					break;
+			case "41":
+					System.out.println("Run all or some tests, 0 for all-mode and other number for others (i for i-th test)");
+					selectMode = this.select();
+					DeliveryTest delivery = new DeliveryTest();
+					delivery.chooseTest(selectMode);
+					break;
+				
 			}
 	}
 }

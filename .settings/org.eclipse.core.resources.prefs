@@ -1,12 +1,9 @@
 eclipse.preferences.version=1
 encoding//src/main/java/apitest/CreateCommentTest.java=UTF-8
+encoding//src/main/java/apitest/DeleteNotificationTest.java=UTF-8
 encoding//src/main/java/apitest/EditAuctionTest.java=UTF-8
+encoding//src/main/java/apitest/GetListChatTest.java=UTF-8
 encoding//src/main/java/apitest/GetListLikesTest.java=UTF-8
+encoding//src/main/java/apitest/SearchTest.java=UTF-8
 encoding//src/main/java/menuhelper/MenuHelper.java=UTF-8
 encoding//src/main/java/urlhelper/BaseURI.java=UTF-8
-encoding//src/test/java/restautotest/BaseURI.java=UTF-8
-encoding//src/test/java/restautotest/CreateAuction.java=UTF-8
-encoding//src/test/java/restautotest/GetListAuctionsByUser.java=UTF-8
-encoding//src/test/java/restautotest/ListAPI.java=UTF-8
-encoding//src/test/java/restautotest/MainMenu.java=UTF-8
-encoding//src/test/java/restautotest/SignUpTest.java=UTF-8

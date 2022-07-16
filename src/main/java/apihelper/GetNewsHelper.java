@@ -51,4 +51,20 @@ public class GetNewsHelper extends GeneralHelper{
 		
 		return response;
 	}
+	
+	public Response getApiResponse(String index, String count) {
+		BaseURI baseUri = new BaseURI();
+		RestAssured.baseURI = baseUri.getBaseURI();
+		
+		JSONObject request = this.setRequestObject(index, count);
+		
+		Response response = RestAssured
+				.given()
+					.contentType("application/json")
+					.body(request.toString())
+				.when()
+					.get("api/news");
+		
+		return response;
+	}
 }
