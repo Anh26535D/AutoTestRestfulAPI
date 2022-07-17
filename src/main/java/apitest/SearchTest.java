@@ -3,6 +3,7 @@ package apitest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import apihelper.SearchHelper;
 import io.restassured.response.Response;
@@ -95,6 +96,7 @@ public class SearchTest {
 		} catch (AssertionError e) {
 			System.out.println("Test 4: Failed");
 			System.out.println("Type is: " + type + " and key is: " + key);
+			System.out.println(response.getBody().asPrettyString());
 			System.out.println("Key actual: " + keyActual);
 		}
 		System.out.println("Test 4 finished");
@@ -116,7 +118,7 @@ public class SearchTest {
 				Assert.assertEquals(search.getCodeResponse(response), 1000);
 				System.out.println("Unit " + i + " Test 5: Passed");
 			} catch (AssertionError e) {
-				System.out.println("Unit " + i + "Test 5: Failed");
+				System.out.println("Unit " + i + " Test 5: Failed");
 				System.out.println("Type is: " + type + " and key is: " + key);
 				System.out.println("Actual: " + search.getCodeResponse(response) + " " + search.getDataResponse(response));
 			}

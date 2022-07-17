@@ -4,13 +4,10 @@ import java.util.ArrayList;
 
 import org.testng.Assert;
 
-import apihelper.CreateAuctionHelper;
 import apihelper.GetDetailAuctionsHelper;
 import apihelper.InfoItemHelper;
 import io.restassured.response.Response;
-import randomhelper.RandomDate;
 import randomhelper.RandomInteger;
-import randomhelper.RandomString;
 
 public class InfoItemTest {
 
@@ -26,7 +23,6 @@ public class InfoItemTest {
 		GetDetailAuctionsHelper getList = new GetDetailAuctionsHelper();
 		ArrayList<String> list = getList.getItemId();
 		
-		RandomString rdStr = new RandomString();
 		RandomInteger rdInt = new RandomInteger();
 		
 		for(int i=0; i<5; i++) {

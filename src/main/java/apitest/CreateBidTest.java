@@ -13,7 +13,7 @@ import randomhelper.RandomString;
 public class CreateBidTest {
 	
    public void test1() {
-		System.out.println("Test 1 in CreateBid API: Input is numeric value, the code should be 1000 and message is OK:");
+		System.out.println("Test 1 in CreateBid API: Input is correct, the code should be 1000 and message is OK:");
 		
 		String email = "auto@gmail.com";
 		String password = "123456";
@@ -32,6 +32,7 @@ public class CreateBidTest {
 			bid_last_id = rdStr.getRandomNumericString(10);
 			auctionId = "/" + listId.get(rdInt.getRandomInteger(0,listId.size()-1));
 			Response response = creBid.getApiResponse(email, password, price, bid_last_id, auctionId);
+			System.out.println(response.getBody().asPrettyString());
 			try {			
                 Assert.assertEquals(creBid.getStatusCode(response), 200);
 				Assert.assertEquals(creBid.getCodeResponse(response), 1000);
@@ -161,6 +162,6 @@ public class CreateBidTest {
 	
 	public static void main(String[] args) {
 		CreateBidTest a = new CreateBidTest();
-		a.test4();
+		a.test1();
 	}
 }

@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-07-15T18:34:37 ICT" name="Default suite" finished-at="2022-07-15T18:34:41 ICT" duration-ms="3869">
+  <suite started-at="2022-07-17T09:15:45 ICT" name="Default suite" finished-at="2022-07-17T09:15:54 ICT" duration-ms="8285">
     <groups>
     </groups>
-    <test started-at="2022-07-15T18:34:37 ICT" name="Default test" finished-at="2022-07-15T18:34:41 ICT" duration-ms="3869">
-      <class name="apitest.DeleteNotificationTest">
-        <test-method signature="test3()[pri:0, instance:apitest.DeleteNotificationTest@4d5b6aac]" started-at="2022-07-15T18:34:37 ICT" name="test3" finished-at="2022-07-15T18:34:41 ICT" duration-ms="3835" status="PASS">
+    <test started-at="2022-07-17T09:15:45 ICT" name="Default test" finished-at="2022-07-17T09:15:54 ICT" duration-ms="8285">
+      <class name="apitest.SearchTest">
+        <test-method signature="test3()[pri:0, instance:apitest.SearchTest@4a7f959b]" started-at="2022-07-17T09:15:45 ICT" name="test3" finished-at="2022-07-17T09:15:54 ICT" duration-ms="8251" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test3 -->
-      </class> <!-- apitest.DeleteNotificationTest -->
+      </class> <!-- apitest.SearchTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -77,12 +77,32 @@ public class LikeAuctionTest {
 		}
 	}
 	
+	public void test4() {
+		System.out.println("Test 4 of LikeAuction API: input auctionID is not exist, code should not be 1000");
+		String email = "auto@gmail.com";
+		String password = "123456";
+		
+		LikeAuctionHelper likeAuction = new LikeAuctionHelper();
+		for(int i=0; i<5; i++) {
+			String auctionID = "";
+			Response response = likeAuction.getApiResponse(email, password, auctionID);
+			try {
+				Assert.assertEquals(likeAuction.getStatusCode(response), 404);
+				System.out.println("Unit " + i + " in test 4: Passed");
+			} catch (AssertionError e) {
+				System.out.println("Unit " + i + " in test 4: Failed");
+				System.out.println("Actual: " + likeAuction.getCodeResponse(response));
+			}
+		}
+	}
+	
 	public void chooseTest(String select) {
 		switch(select) {
 		case "0": 
 			this.test1();
 			this.test2();
 			this.test3();
+			this.test4();
 			break;
 		case "1": 
 			this.test1();
@@ -92,6 +112,9 @@ public class LikeAuctionTest {
 			break;
 		case "3":
 			this.test3();
+			break;
+		case "4":
+			this.test4();
 			break;
 		default:
 			break;

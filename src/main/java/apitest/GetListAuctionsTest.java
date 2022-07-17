@@ -37,8 +37,32 @@ public class GetListAuctionsTest {
 	 }
 	
 	public void test2() {
-		System.out.println("Nothing....");
-	}
+		System.out.println("Test 2 in GetListAuctions API: The code should not be 1000 when input is null :");
+		GetListAuctionsHelper listAuctions = new GetListAuctionsHelper();
+		RandomString rdStr = new RandomString();
+		RandomInteger rdNum = new RandomInteger();
+		String index, count, user_id, type, category_id, statusId;
+		user_id = null;
+		type = null;
+		category_id = null;
+		
+		for(int i=0; i<5; i++) {
+			index = "";
+			count = "";
+			statusId = "/" + rdNum.getRandomInteger(0, 6);
+			Response response = listAuctions.getApiResponse(index, count, user_id, type, category_id, statusId);
+			try {
+				Assert.assertNotEquals(listAuctions.getCodeResponse(response), 1000);
+		        System.out.println("Unit " + i + " in test 2: Passed");
+			} catch (AssertionError e) {
+				System.out.println("Unit " + i + " in test 2: Failed");
+			} finally {
+				System.out.println("Test 2 finished");
+				System.out.println("Actual: " + listAuctions.getCodeResponse(response));
+			}
+		}
+		System.out.println("Test 2 finished");
+	 }
 	
 	public void chooseTest(String select) {
 		switch(select) {

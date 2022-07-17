@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 import org.testng.Assert;
 
-import apihelper.*;
+import apihelper.GetListAuctionsHelper;
+import apihelper.GetListBidsHelper;
 import io.restassured.response.Response;
-import randomhelper.*;
+import randomhelper.RandomInteger;
+import randomhelper.RandomString;
 
-public class GetListCommentsTest {
-
+public class GetListBidsTest {
 	public void test1() {
-		System.out.println("Test 1 in GetListComments API: Code should be 1000 and message should be \"OK\" when passing correctly (login)");
+		System.out.println("Test 1 in GetListBids API: Code should be 1000 and message should be \"OK\" when passing correctly (login)");
 		
 		String email = "auto@gmail.com";
 		String password = "123456";
 		
-		GetListCommentsHelper listCmt = new GetListCommentsHelper();
+		GetListBidsHelper listBid = new GetListBidsHelper();
 		String index, count , auctionId;
 		
 		GetListAuctionsHelper listAuction = new GetListAuctionsHelper();
@@ -27,10 +28,10 @@ public class GetListCommentsTest {
 			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
 			index = Integer.toString(rdInt.getRandomInteger(0, 20));
 			count = Integer.toString(rdInt.getRandomInteger(0, 20));
+			Response respose = listBid.getApiResponse(email, password, index, count, auctionId);
 			try {		
-				Response respose = listCmt.getApiResponse(email, password, index, count, auctionId);
-				Assert.assertEquals(listCmt.getCodeResponse(respose), 1000);
-				Assert.assertEquals(listCmt.getMessageResponse(respose), "OK");
+				Assert.assertEquals(listBid.getCodeResponse(respose), 1000);
+				Assert.assertEquals(listBid.getMessageResponse(respose), "OK");
 		        System.out.println("Unit " + i + " in test 1: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 1: Failed");
@@ -40,9 +41,9 @@ public class GetListCommentsTest {
 	}
 	
 	public void test2() {
-		System.out.println("Test 2 in GetListComments API: Code should be 1000 and message should be \"OK\" when passing correctly (not login)");
+		System.out.println("Test 2 in GetListBids API: Code should be 1000 and message should be \"OK\" when passing correctly (not login)");
 		
-		GetListCommentsHelper listCmt = new GetListCommentsHelper();
+		GetListBidsHelper listBid = new GetListBidsHelper();
 		String index, count , auctionId;
 		
 		GetListAuctionsHelper listAuction = new GetListAuctionsHelper();
@@ -53,10 +54,10 @@ public class GetListCommentsTest {
 			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
 			index = Integer.toString(rdInt.getRandomInteger(0, 20));
 			count = Integer.toString(rdInt.getRandomInteger(0, 20));
+			Response respose = listBid.getApiResponse(index, count, auctionId);
 			try {		
-				Response respose = listCmt.getApiResponse(index, count, auctionId);
-				Assert.assertEquals(listCmt.getCodeResponse(respose), 1000);
-				Assert.assertEquals(listCmt.getMessageResponse(respose), "OK");
+				Assert.assertEquals(listBid.getCodeResponse(respose), 1000);
+				Assert.assertEquals(listBid.getMessageResponse(respose), "OK");
 		        System.out.println("Unit " + i + " in test 2: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 2: Failed");
@@ -66,9 +67,9 @@ public class GetListCommentsTest {
 	}
 	
 	public void test3() {
-		System.out.println("Test 3 in GetListComments API: Input is null, the code should not be 1000 and \"OK\"");
+		System.out.println("Test 3 in GetListBids API: Input is null, the code should not be 1000 and \"OK\"");
 
-		GetListCommentsHelper listCmt = new GetListCommentsHelper();
+		GetListBidsHelper listBid = new GetListBidsHelper();
 		String index = "";
 		String count = "";
 		String auctionId;
@@ -79,11 +80,11 @@ public class GetListCommentsTest {
 		RandomInteger rdInt = new RandomInteger();
 		for(int i=0; i<5; i++) {
 			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
-			Response response = listCmt.getApiResponse(index, count, auctionId);
+			Response response = listBid.getApiResponse(index, count, auctionId);
 			try {
-				Assert.assertEquals(listCmt.getStatusCode(response), 200);
-				Assert.assertNotEquals(listCmt.getCodeResponse(response), 1000);
-				Assert.assertNotEquals(listCmt.getMessageResponse(response), "OK");
+				Assert.assertEquals(listBid.getStatusCode(response), 200);
+				Assert.assertNotEquals(listBid.getCodeResponse(response), 1000);
+				Assert.assertNotEquals(listBid.getMessageResponse(response), "OK");
 		        System.out.println("Unit " + i + " in test 3: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 3: Failed");
@@ -95,7 +96,7 @@ public class GetListCommentsTest {
 	public void test4() {
 		System.out.println("Test 4 in GetListComments API: Input is not numeric value, the code should not be 1000 and \"OK\"");
 
-		GetListCommentsHelper listCmt = new GetListCommentsHelper();
+		GetListBidsHelper listBid = new GetListBidsHelper();
 		String index, count, auctionId;
 		RandomString rdStr = new RandomString();
 		
@@ -107,15 +108,15 @@ public class GetListCommentsTest {
 			index = rdStr.getRandomNumericString(10);
 			count = rdStr.getRandomNumericString(10);
 			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
-			Response response = listCmt.getApiResponse(index, count, auctionId);
+			Response response = listBid.getApiResponse(index, count, auctionId);
 			try {
-				Assert.assertEquals(listCmt.getStatusCode(response), 200);
-				Assert.assertNotEquals(listCmt.getCodeResponse(response), 1000);
-				Assert.assertNotEquals(listCmt.getMessageResponse(response), "OK");
+				Assert.assertEquals(listBid.getStatusCode(response), 200);
+				Assert.assertNotEquals(listBid.getCodeResponse(response), 1000);
+				Assert.assertNotEquals(listBid.getMessageResponse(response), "OK");
 		        System.out.println("Unit " + i + " in test 4: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 4: Failed");
-		        System.out.println("Actual: " + listCmt.getCodeResponse(response));
+		        System.out.println("Actual: " + listBid.getCodeResponse(response));
 			}
 		}
 		System.out.println("Test 4 finished");
