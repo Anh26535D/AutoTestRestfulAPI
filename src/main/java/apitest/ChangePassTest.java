@@ -41,7 +41,7 @@ public class ChangePassTest {
 	}
 	
 	public void test2() {
-		System.out.println("Test 2 in ChangePass API: Code should be 1004 when not login");
+		System.out.println("Test 2 in ChangePass API: Code should not be 1004 when not login");
 		ChangePassHelper changePass = new ChangePassHelper();
 		String new_pass, password;
 
@@ -54,10 +54,11 @@ public class ChangePassTest {
 			Response response = changePass.getApiResponse(password, new_pass, new_pass);
 			try {
 				Assert.assertEquals(changePass.getStatusCode(response), 200);
-				Assert.assertEquals(changePass.getCodeResponse(response), 1004);
+				Assert.assertNotEquals(changePass.getCodeResponse(response), 1004);
 				System.out.println("Unit " + i + " in test 2: Passed");
 			} catch(AssertionError e) {
 				System.out.println("Unit " + i + " in test 2: Failed");
+				System.out.println("Actual: " + changePass.getCodeResponse(response));
 			}
 		}
 		System.out.println("Test 2 Finished");

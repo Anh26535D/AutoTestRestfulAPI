@@ -34,7 +34,7 @@ public class GetNewsTest {
 	}
 	
 	public void test2() {
-		System.out.println("Test 2 in GetNews API: Input is null, the code should be 1000 and message is OK");
+		System.out.println("Test 2 in GetNews API: Input is null, the code should not be 1000");
 		
 		String email = "auto@gmail.com";
 		String password = "123456";
@@ -42,14 +42,13 @@ public class GetNewsTest {
 		GetNewsHelper getNews = new GetNewsHelper();
 		String index = "";
 		String count = "";
-
+		Response response = getNews.getApiResponse(email, password, index, count);
 		try {
-			Response response = getNews.getApiResponse(email, password, index, count);
-			Assert.assertEquals(getNews.getCodeResponse(response), 1000);
-			Assert.assertEquals(getNews.getMessageResponse(response), "OK");
-			 System.out.println("Unit 2: Passed");
+			Assert.assertNotEquals(getNews.getCodeResponse(response), 1000);
+			System.out.println("Unit 2: Passed");
 		} catch (AssertionError e) {
 			System.out.println("Unit 2: Failed");
+			System.out.println("Actual: " + getNews.getCodeResponse(response));
 		}
 		System.out.println("Test 2 finished");
 	}

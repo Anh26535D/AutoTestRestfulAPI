@@ -88,6 +88,8 @@ public class GetListBidsTest {
 		        System.out.println("Unit " + i + " in test 3: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 3: Failed");
+		        System.out.println("Actual: " + listBid.getCodeResponse(response));
+		        System.out.println("Input: Index: " + index + " Count: " + count);
 			}
 		}
 		System.out.println("Test 3 finished");
@@ -105,14 +107,12 @@ public class GetListBidsTest {
 		
 		RandomInteger rdInt = new RandomInteger();
 		for(int i=0; i<5; i++) {
-			index = rdStr.getRandomNumericString(10);
-			count = rdStr.getRandomNumericString(10);
+			index = rdStr.getRandomString(10);
+			count = rdStr.getRandomString(10);
 			auctionId = "/" + listId.get(rdInt.getRandomInteger(0, listId.size()-1));
 			Response response = listBid.getApiResponse(index, count, auctionId);
 			try {
-				Assert.assertEquals(listBid.getStatusCode(response), 200);
-				Assert.assertNotEquals(listBid.getCodeResponse(response), 1000);
-				Assert.assertNotEquals(listBid.getMessageResponse(response), "OK");
+				Assert.assertEquals(listBid.getStatusCode(response), 500);
 		        System.out.println("Unit " + i + " in test 4: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 4: Failed");

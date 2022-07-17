@@ -1,7 +1,8 @@
 package apitest;
 
 import java.util.ArrayList;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.testng.Assert;
 
 import apihelper.CreateBidHelper;
@@ -28,18 +29,22 @@ public class CreateBidTest {
         RandomInteger rdInt = new RandomInteger();
 
 		for(int i=0; i<5; i++) {
-			price = rdStr.getRandomNumericString(rdInt.getRandomInteger(1000000, 10000000));
+			price = rdStr.getRandomNumericString(rdInt.getRandomInteger(10000000, 100000000));
 			bid_last_id = rdStr.getRandomNumericString(10);
 			auctionId = "/" + listId.get(rdInt.getRandomInteger(0,listId.size()-1));
 			Response response = creBid.getApiResponse(email, password, price, bid_last_id, auctionId);
-			System.out.println(response.getBody().asPrettyString());
 			try {			
                 Assert.assertEquals(creBid.getStatusCode(response), 200);
 				Assert.assertEquals(creBid.getCodeResponse(response), 1000);
 				Assert.assertEquals(creBid.getMessageResponse(response), "OK");
 				System.out.println("Unit " + i + " in test 1: Passed");
 			} catch (AssertionError e) {
-				System.out.println("Unit " + i + " in test 1: Passed");
+				System.out.println("Unit " + i + " in test 1: Failed");
+				System.out.println("Status code: " + creBid.getStatusCode(response));
+				if(response.getBody().asString().length()>500)
+					System.out.println(response.getBody().asString().substring(0, 500));
+				else
+					System.out.println(response.getBody().asString());
 			}
 		}
 		System.out.println("Test 1 finished");
@@ -67,6 +72,7 @@ public class CreateBidTest {
 		        System.out.println("Unit " + i + " in test 2: Passed");
 			} catch (AssertionError e) {
 		        System.out.println("Unit " + i + " in test 2: Failed");
+		        System.out.println(creBid.getStatusCode(response));
 			}
 		}
 		System.out.println("Test 2 finished");
